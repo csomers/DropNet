@@ -126,7 +126,7 @@ namespace DropNet.Helpers
 		{
 			var request = new RestRequest(Method.PUT);
             //Need to put the OAuth Parmeters in the Resource to get around them being put in the body
-            request.Resource = "{version}/files_put/{root}{path}?file={file}&oauth_consumer_key={oauth_consumer_key}&oauth_nonce={oauth_nonce}";
+            request.Resource = "{version}/files_put/{root}{path}{file}?oauth_consumer_key={oauth_consumer_key}&oauth_nonce={oauth_nonce}";
             request.Resource += "&oauth_token={oauth_token}&oauth_timestamp={oauth_timestamp}";
             request.Resource += "&oauth_signature={oauth_signature}&oauth_signature_method={oauth_signature_method}&oauth_version={oauth_version}";
 			request.AddParameter("version", _version, ParameterType.UrlSegment);
@@ -135,10 +135,10 @@ namespace DropNet.Helpers
             //Need to add the "file" parameter with the file name
             request.AddParameter("file", filename, ParameterType.UrlSegment);
 
-            request.AddParameter("overwrite", overwrite);
+            request.AddParameter("overwrite", overwrite, ParameterType.UrlSegment);
             if (!String.IsNullOrEmpty(parent_revision))
             {
-                request.AddParameter("parent_rev", parent_revision);
+                request.AddParameter("parent_rev", parent_revision, ParameterType.UrlSegment);
             }
 
             request.AddParameter("file", fileData, ParameterType.RequestBody);
