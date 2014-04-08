@@ -154,7 +154,12 @@ namespace DropNet
             }
             var request = _requestHelper.CreateUploadFilePutRequest(path, filename, fileData, Root, overwrite, parentRevision);
             var response = _restClientContent.Execute<MetaData>(request);
-
+            if (!response.StatusCode = HttpStatusCode.OK)
+            {
+                DropboxException ex = new DropboxException(r);
+                ex.Message("Dropbox returned error message: " + response.Content);
+                throw ex;
+            }
             //TODO - Return something better here?
             return response.Data;
         }
@@ -176,7 +181,12 @@ namespace DropNet
             }
             var request = _requestHelper.CreateUploadFileRequest(path, filename, fileData, Root, overwrite, parentRevision);
             var response = _restClientContent.Execute<MetaData>(request);
-
+            if (!response.StatusCode = HttpStatusCode.OK)
+            {
+                DropboxException ex = new DropboxException(r);
+                ex.Message("Dropbox returned error message: " + response.Content);
+                throw ex;
+            }
             //TODO - Return something better here?
             return response.Data;
         }
@@ -198,7 +208,12 @@ namespace DropNet
             }
             var request = _requestHelper.CreateUploadFileRequest(path, filename, stream, Root, overwrite, parentRevision);
             var response = _restClientContent.Execute<MetaData>(request);
-
+            if (!response.StatusCode = HttpStatusCode.OK)
+            {
+                DropboxException ex = new DropboxException(r);
+                ex.Message("Dropbox returned error message: " + response.Content);
+                throw ex;
+            }
             //TODO - Return something better here?
             return response.Data;
         }
